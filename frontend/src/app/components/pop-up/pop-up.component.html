@@ -15,7 +15,7 @@
                         <mat-label><i class="fa fa-cogs"></i> Project(s)</mat-label>
                         <mat-form-field class="projects">
                             <mat-select class="projectSelect" type="text" id="projects" name="projects" placeholder="Select..." matInput formControlName="projects" multiple>
-                                <mat-option *ngFor="let project of projects" [value]="project.name">{{project.name}}</mat-option>
+                                <mat-option *ngFor="let project of projects" [value]="project.name" title="{{project.description}}">{{project.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </td>

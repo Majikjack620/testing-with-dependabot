@@ -12,6 +12,7 @@ import { Title } from '@angular/platform-browser';
 export class SigninComponent {
   signinForm: any;
   loading: boolean;
+  hide: boolean;
   user: IUser;
 
   constructor(
@@ -20,6 +21,7 @@ export class SigninComponent {
     private authService: AuthService,
     private titleService: Title) {
     this.loading = false;
+    this.hide = true;
     this.user = {} as IUser;
     this.titleService.setTitle("Sign In | ROC Swaous");
   }
@@ -36,18 +38,6 @@ export class SigninComponent {
 
     console.log(this.signinForm);
     this.loading = false;
-  }
-
-  showPassword() {
-    const toggle = document.getElementById('togglePassword');
-    var pswd = document.getElementById("pswd");
-    var type = pswd.getAttribute('type') === 'password' ? 'text' : 'password';
-    
-    pswd.setAttribute('type', type);
-
-    var eye = toggle.getAttribute('class') === 'far fa-eye' ? 'far fa-eye-slash' : 'far fa-eye';
-
-    toggle.setAttribute('class', eye);
   }
 
   public signIn(): void {
@@ -68,8 +58,6 @@ export class SigninComponent {
             window.location.reload();
           });
         }
-        
-        
       });
     }).catch(() => {
       this.loading = false;

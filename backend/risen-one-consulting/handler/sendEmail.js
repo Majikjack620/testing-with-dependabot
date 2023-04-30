@@ -1,30 +1,41 @@
-//Allows user to send email of report
+//Allowing emails to be sent to admin email
+//Parameters needed are (emailAddress, empName, reportText, projects, submittedAt)
+//Will send an email with the parameters to specified email
+
 
 //Import modules
-const { 
-    SESClient,
-    SendEmailCommand
- } = require("@aws-sdk/client-ses");
+const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 
-//Declare AWS SES Client
+
+//Declare email and AWS SES Client
+const EMAIL = "jackjosh211@gmail.com";
 const client = new SESClient();
+
 
 //Created function
 module.exports.sendEmail = async (event, context, callback) => {
-    //Body grabbed from JSON event
+    console.log("EVENT::: Sending mail");
+
+
+    //Body grabbed from JSON event and parsed
     const { emailAddress, empName, reportText, projects, submittedAt } = JSON.parse(event.body);
+
+
+    //Validation check
     if(typeof empName !== "string" || typeof reportText !== "string") {
         console.error("Validation Failed");
         return;
     }
+    console.log("Email data grabbed and parsed", event.body);
 
-    //Create parameters for the email
+
+    //Declare parameters to be sent to email
     const emailText = {
-        Source: "jackjosh211@gmail.com",
+        Source: EMAIL,
 
         Destination: {
             ToAddresses: [
-                "jackjosh211@gmail.com"
+                EMAIL
             ]
         },
 
@@ -41,11 +52,12 @@ module.exports.sendEmail = async (event, context, callback) => {
         }
     };
 
+
     try {
-        //Send parameters in email
+        //Send parameters to email
         await client.send(new SendEmailCommand(emailText));
 
-        //Response with fields
+        //Response sent to API Gateway
         const response = {
             isBase64Encoded: false,
             statusCode: 200,
@@ -56,6 +68,7 @@ module.exports.sendEmail = async (event, context, callback) => {
             body: JSON.stringify(reportText)
         }
 
+        console.log("SUCCESS::: Email sent to " + EMAIL)
         callback(null, response);
     } catch(err) {
         callback(null, err);
