@@ -11,7 +11,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "11:45"
+      time: "11:55"
       timezone: "America/Chicago"
     allow:
       - dependency-type: "all"
@@ -29,7 +29,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "11:45"
+      time: "11:55"
       timezone: "America/Chicago"
     allow:
       - dependency-type: "all"
