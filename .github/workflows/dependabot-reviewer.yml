@@ -10,7 +10,7 @@ permissions:
 jobs:
   Dependabot-Reviewer-PR:
     runs-on: ubuntu-latest
-    if: ${{github.actor == 'dependabot[bot]'}}
+    if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
       - name: Dependabot Metadata
         id: dependabot-metadata
