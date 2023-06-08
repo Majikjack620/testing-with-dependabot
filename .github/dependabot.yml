@@ -11,32 +11,31 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "14:00"
+      time: "14:15"
       timezone: "America/Chicago"
     allow:
       - dependency-type: "all"
     target-branch: "main"
     commit-message:
-      prefix: "[npm] "
+      prefix: "[npm] frontend"
       prefix-development: "[npm] frontend"
       include: "scope"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 100
     rebase-strategy: "auto"
-
-updates:
+    
   - package-ecosystem: "npm"
     directory: "/backend"
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "14:00"
+      time: "14:15"
       timezone: "America/Chicago"
     allow:
       - dependency-type: "all"
     target-branch: "main"
     commit-message:
-      prefix: "[npm] "
+      prefix: "[npm] backend"
       prefix-development: "[npm] backend"
       include: "scope"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 100
     rebase-strategy: "auto"
