@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Dependabot Metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@v1.3.1
+        uses: dependabot/fetch-metadata@v1
       
       - name: Approve Patch and Minor Updates
         if: ${{steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' || steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor'}}
@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       
       - name: Auto-merge for Dependabot PRs Activation
-        run: gh pr merge --auto -m "$PR_URL"
+        run: gh pr merge --auto -m --delete-branch
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
