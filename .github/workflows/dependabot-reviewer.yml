@@ -1,9 +1,7 @@
 name: Dependabot Dependency Reviewer
 run-name: ${{ github.actor }} is checking for dependency vulnerabilities
 
-on:
-  pull_request:
-    branches: [main, master]
+on: pull_request
 
 permissions:
   pull-requests: write
@@ -12,11 +10,11 @@ permissions:
 jobs:
   Dependabot-Reviewer-PR:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{github.actor == 'dependabot[bot]'}}
     steps:
       - name: Dependabot Metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@v1.3.1
+        uses: dependabot/fetch-metadata@v1
         with:
           github-token: ${{secrets.TOKENIZED}}
       
@@ -24,10 +22,11 @@ jobs:
         if: ${{steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' || steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor'}}
         run: gh pr review --approve "$PR_URL" --body "**[Approving Pull Request]** Includes major update of a dependency"
         env:
+          PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.TOKENIZED}}
       
       - name: Auto-merge for Dependabot PRs Activation
-        run: gh pr merge --auto --merge "$PR_URL"
+        run: gh pr merge --auto --merge "$PR_URL" --delete-branch
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.TOKENIZED}}
@@ -37,6 +36,6 @@ jobs:
         run:
           gh pr comment "$PR_URL" --body "**[Pull Request Not Approved]** Includes **major** update to dependency"
         env:
-          PR_URL: ${{github.events.pull_request.html_url}}
+          PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.TOKENIZED}}
           
