@@ -35,7 +35,7 @@
     "express": "^4.18.2",
     "express-jwt": "^8.4.1",
     "express-session": "^1.17.3",
-    "html-to-pdfmake": "^2.4.16",
+    "html-to-pdfmake": "^2.4.21",
     "jsonwebtoken": "^9.0.0",
     "jspdf": "^2.5.1",
     "nodemon": "^2.0.22",
