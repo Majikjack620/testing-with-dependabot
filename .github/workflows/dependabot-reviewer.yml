@@ -1,0 +1,39 @@
+name: Dependabot Dependency Reviewer
+run-name: ${{ github.actor }} is checking for dependency vulnerabilities
+
+on: pull_request_target
+
+permissions:
+  pull-requests: write
+  contents: write
+  
+jobs:
+  Dependabot-Reviewer-PR:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot Metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.3.1
+      
+      - name: Auto-merge for Dependabot PRs Activation
+        run: gh pr merge --auto -m "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
+      - name: Approve Patch and Minor Updates
+        if: ${{steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' || steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor'}}
+        run: gh pr review $PR_URL -a -b "**[Approving Pull Request]** Includes major update of a dependency"
+        env: 
+          PR_URL: ${{github.events.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      
+      - name: Comment on Major Updates of non-development dependencies
+        if: ${{steps.dependabot-metadata.outputs.update-type == 'version-update:semver-major' && steps.dependabot-metadata.outputs.dependency-type == 'direct:production'}}
+        run:
+          gh pr comment $PR_URL -b "**[Pull Request Not Approved]** Includes major update to dependency **used in production**"
+        env:
+          PR_URL: ${{github.events.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
