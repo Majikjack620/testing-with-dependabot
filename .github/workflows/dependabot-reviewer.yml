@@ -1,7 +1,9 @@
 name: Dependabot Dependency Reviewer
 run-name: ${{ github.actor }} is checking for dependency vulnerabilities
 
-on: pull_request_target
+on:
+  pull_request:
+    branches: [main, master]
 
 permissions:
   pull-requests: write
@@ -10,30 +12,31 @@ permissions:
 jobs:
   Dependabot-Reviewer-PR:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
       - name: Dependabot Metadata
         id: dependabot-metadata
         uses: dependabot/fetch-metadata@v1.3.1
+        with:
+          github-token: ${{secrets.TOKENIZED}}
+      
+      - name: Approve Patch and Minor PRs
+        if: ${{steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' || steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor'}}
+        run: gh pr review --approve "$PR_URL" --body "**[Approving Pull Request]** Includes major update of a dependency"
+        env:
+          GITHUB_TOKEN: ${{secrets.TOKENIZED}}
       
       - name: Auto-merge for Dependabot PRs Activation
-        run: gh pr merge --auto -m "$PR_URL"
+        run: gh pr merge --auto --merge "$PR_URL"
         env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          
-      - name: Approve Patch and Minor Updates
-        if: ${{steps.dependabot-metadata.updated-dependencies.update-type == 'version-update:semver-patch' || steps.dependabot-metadata.updated-dependencies.update-type == 'version-update:semver-minor'}}
-        run: gh pr review $PR_URL -a -b "**[Approving Pull Request]** Includes major update of a dependency"
-        env: 
-          PR_URL: ${{github.events.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.TOKENIZED}}
       
       - name: Comment on Major Updates of non-development dependencies
-        if: ${{steps.dependabot-metadata.updated-dependencies.update-type == 'version-update:semver-major'}}
+        if: ${{steps.dependabot-metadata.outputs.update-type == 'version-update:semver-major'}}
         run:
-          gh pr comment $PR_URL -b "**[Pull Request Not Approved]** Includes **major** update to dependency"
+          gh pr comment "$PR_URL" --body "**[Pull Request Not Approved]** Includes **major** update to dependency"
         env:
           PR_URL: ${{github.events.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.TOKENIZED}}
           
