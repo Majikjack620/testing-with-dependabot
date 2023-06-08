@@ -7,18 +7,36 @@ version: 2
 
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/frontend"
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "11:45"
+      time: "11:55"
       timezone: "America/Chicago"
     allow:
       - dependency-type: "all"
     target-branch: "main"
     commit-message:
       prefix: "[npm] "
-      prefix-development: "[npm] dev"
+      prefix-development: "[npm] frontend"
+      include: "scope"
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "11:55"
+      timezone: "America/Chicago"
+    allow:
+      - dependency-type: "all"
+    target-branch: "main"
+    commit-message:
+      prefix: "[npm] "
+      prefix-development: "[npm] backend"
       include: "scope"
     open-pull-requests-limit: 5
     rebase-strategy: "auto"
