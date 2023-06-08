@@ -1,33 +1,38 @@
-//Allows user to create report
+//Allowing creation of reports
+//Parameters needed are (empName, email, reportText, projects, submittedAt)
+//Will save to 'reports-table-dev' DynamoDb table
+
 
 //Import modules
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const {
-  DynamoDBDocumentClient,
-  GetCommand,
-  PutCommand,
-  ScanCommand,
-  UpdateCommand,
-  QueryCommand,
-  DeleteCommand
-} = require("@aws-sdk/lib-dynamodb");
+const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
 const uuid = require("uuid");
+
 
 //Declare table and DynamoDb Client
 const REPORT_TABLE = process.env.REPORT_TABLE;
 const client = new DynamoDBClient();
 const dynamoDb = DynamoDBDocumentClient.from(client);
 
-//Created function
+
+//Create function
 module.exports.createReport = async (event, context, callback) => {
-    //Body grabbed from JSON event
+    console.log("EVENT::: Starting report push to " + REPORT_TABLE);
+
+
+    //Body grabbed from JSON event and parsed
     const { empName, email, reportText, projects, submittedAt } = JSON.parse(event.body);
+    console.log("EVENT::: Report data grabbed and parsed", event.body);
+
+
+    //Validation check
     if(typeof empName !== "string" || typeof reportText !== "string") {
         console.error("Validation Failed");
         return;
     }
 
-    //Create parameters for the table
+
+    //Declare parameters to be pushed to table
     const params = {
         TableName: REPORT_TABLE,
         Item: {
@@ -42,11 +47,13 @@ module.exports.createReport = async (event, context, callback) => {
         }
     }
 
+
     try {
-        //Put parameters into DynamoDB table
+        //Push parameters into table
         await dynamoDb.send(new PutCommand(params));
 
-        //Response with fields
+        
+        //Response sent to API Gateway
         const response = {
             isBase64Encoded: false,
             statusCode: 200,
@@ -57,8 +64,11 @@ module.exports.createReport = async (event, context, callback) => {
             body: JSON.stringify(reportText)
         }
 
+        
+        console.log("SUCCESS::: Report successfully pushed to " + REPORT_TABLE);
         callback(null, response);
     } catch(err) {
+        console.log(event.error);
         callback(null, err);
     }
 };

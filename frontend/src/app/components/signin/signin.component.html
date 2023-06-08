@@ -9,10 +9,12 @@
         </mat-form-field>
         <mat-label><i class="fa fa-key"></i> Password</mat-label>
         <mat-form-field>
-          <i class="far fa-eye-slash" id="togglePassword" (click)="showPassword()" style="float: right; cursor: pointer"></i>
-          <input type="password" id="pswd" name="pswd" matInput formControlName="pswd" />
+          <input [type]="hide ? 'password' : 'text'" id="pswd" name="pswd" matInput formControlName="pswd" />
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </mat-form-field>
-        <button mat-raised-button class="filled" [disabled]="signinForm.invalid" (click)="signIn()" style="align-self: center; width: 350px;">Enter Reports Portal!</button>
+        <button mat-raised-button class="filled" [disabled]="signinForm.invalid" (click)="signIn()" style="align-self: center; width: 350px;">Log In</button>
         <a class="subtext" routerLink="/signup">Not registered? Sign up here!</a>
       </form>
       <div class="fa fa-spinner fa-pulse fa-fw" *ngIf="loading" style="align-self: center; padding-top: 10px;"></div>
