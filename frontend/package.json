@@ -27,7 +27,7 @@
     "amazon-cognito-identity-js": "^6.2.0",
     "aws-amplify": "^5.0.25",
     "body-parser": "^1.20.2",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.0",
     "classlist.js": "^1.1.20150312",
     "core-js": "^3.30.0",
     "cors": "^2.8.5",
