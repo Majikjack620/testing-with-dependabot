@@ -7,7 +7,7 @@ on:
       - master
       
 permissions:
-  pull-requests: writes
+  pull-requests: write
   contents: write
   
 jobs:
