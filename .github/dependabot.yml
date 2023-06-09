@@ -8,14 +8,14 @@ updates:
       day: "thursday"
       time: "9:00"
       timezone: "America/Chicago"
-     labels:
+    labels:
       - "frontend"
       - "dependencies"
       - "npm"
-     commit-message:
+    commit-message:
       prefix: "[npm] frontend"
       include: "scope"
-     open-pull-requests-limit: 10
+    open-pull-requests-limit: 10
      
   - package-ecosystem: "npm"
     directory: "/backend"
@@ -24,11 +24,11 @@ updates:
       day: "thursday"
       timezone: "America/Chicago"
       time: "9:00"
-     labels:
+    labels:
       - "backend"
       - "dependencies"
       - "npm"
-     commit-message:
+    commit-message:
       prefix: "[npm] backend"
       include: "scope"
-     open-pull-requests-limit: 10
+    open-pull-requests-limit: 10
