@@ -1,14 +1,17 @@
 version: 2
 
 updates:
-
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
       interval: "weekly"
       day: "thursday"
-      timezone: "America/Chicago"
       time: "9:00"
+      timezone: "America/Chicago"
+     labels:
+      - "frontend"
+      - "dependencies"
+      - "npm"
      commit-message:
       prefix: "[npm] frontend"
       include: "scope"
@@ -21,6 +24,10 @@ updates:
       day: "thursday"
       timezone: "America/Chicago"
       time: "9:00"
+     labels:
+      - "backend"
+      - "dependencies"
+      - "npm"
      commit-message:
       prefix: "[npm] backend"
       include: "scope"
