@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "9:00"
+      time: "09:00"
       timezone: "America/Chicago"
     labels:
       - "frontend"
@@ -23,7 +23,7 @@ updates:
       interval: "weekly"
       day: "thursday"
       timezone: "America/Chicago"
-      time: "9:00"
+      time: "09:00"
     labels:
       - "backend"
       - "dependencies"
