@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "09:00"
+      time: "09:45"
       timezone: "America/Chicago"
     allow:
       - dependency-type: "all"
@@ -25,7 +25,7 @@ updates:
       interval: "weekly"
       day: "thursday"
       timezone: "America/Chicago"
-      time: "09:00"
+      time: "09:45"
     allow:
       - dependency-type: "all"
     labels:
