@@ -10,10 +10,6 @@ updates:
       timezone: "America/Chicago"
     allow:
       - dependency-type: "all"
-    labels:
-      - "frontend"
-      - "dependencies"
-      - "npm"
     commit-message:
       prefix: "[npm] frontend"
       include: "scope"
@@ -28,10 +24,6 @@ updates:
       time: "09:45"
     allow:
       - dependency-type: "all"
-    labels:
-      - "backend"
-      - "dependencies"
-      - "npm"
     commit-message:
       prefix: "[npm] backend"
       include: "scope"
