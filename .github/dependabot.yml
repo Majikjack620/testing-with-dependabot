@@ -8,6 +8,10 @@ updates:
       day: "thursday"
       time: "09:45"
       timezone: "America/Chicago"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "npm"
     allow:
       - dependency-type: "all"
     commit-message:
@@ -22,6 +26,10 @@ updates:
       day: "thursday"
       timezone: "America/Chicago"
       time: "09:45"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "npm"
     allow:
       - dependency-type: "all"
     commit-message:
