@@ -1,0 +1,35 @@
+name: Dependabot Dependency Reviewer
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      
+permissions:
+  pull-requests: write
+  contents: write
+  
+jobs:
+  Dependabot-PR-Reviewer:
+    runs-on: ubuntu-latest
+    if: ${{github.actor == 'dependabot[bot]'}}
+    steps:
+      - name: Fetching Dependabot Metadata
+        id: metadata
+        uses: dependabot/fetch-metdata@v1
+        with:
+          GITHUB-TOKEN: ${{secrets.TOKENIZED}}
+          
+      - name: Approve Patches and Minor PRs
+        if: ${{steps.metadata.outputs.update-type == 'version-update:semver-patch' || 'version-update:semver-minor'}}
+        run: gh pr review --approve "$PR_URL" --body "**APPROVED:** Patch or minor update to dependencies"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.TOKENIZED}}
+      
+      - name: Enabling Auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL" --delete-branch
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.TOKENIZED}}

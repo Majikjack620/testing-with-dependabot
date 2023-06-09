@@ -6,14 +6,14 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-      time: "09:00"
+      time: "09:45"
       timezone: "America/Chicago"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "npm"
     allow:
       - dependency-type: "all"
-    labels:
-      - "frontend"
-      - "dependencies"
-      - "npm"
     commit-message:
       prefix: "[npm] frontend"
       include: "scope"
@@ -25,13 +25,13 @@ updates:
       interval: "weekly"
       day: "thursday"
       timezone: "America/Chicago"
-      time: "09:00"
+      time: "09:45"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "npm"
     allow:
       - dependency-type: "all"
-    labels:
-      - "backend"
-      - "dependencies"
-      - "npm"
     commit-message:
       prefix: "[npm] backend"
       include: "scope"
