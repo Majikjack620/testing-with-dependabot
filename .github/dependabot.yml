@@ -1,0 +1,38 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+      timezone: "America/Chicago"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "npm"
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: "[npm] frontend"
+      include: "scope"
+    open-pull-requests-limit: 10
+     
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      timezone: "America/Chicago"
+      time: "10:00"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "npm"
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: "[npm] backend"
+      include: "scope"
+    open-pull-requests-limit: 10
