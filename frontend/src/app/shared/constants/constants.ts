@@ -1,8 +1,7 @@
 export class Constants {
   public static ADMIN_ROUTES = {
     ADMIN: '/admin',
-    DELETE: '/delete',
-    NEWPROJECT: '/newproject'
+    DELETE: '/delete'
   };
 
   public static EMP_ROUTES = {

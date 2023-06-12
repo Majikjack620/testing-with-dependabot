@@ -1,31 +1,27 @@
-//Allowing scan of ALL reports
-//Parameters needed are name of table
-//Will grab every item from 'reports-table-dev' DynamoDb table
-
+//Gets ALL reports for admins
 
 //Import modules
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const { DynamoDBDocumentClient, ScanCommand } = require("@aws-sdk/lib-dynamodb");
-
+const {
+  DynamoDBDocumentClient,
+  GetCommand,
+  PutCommand,
+  ScanCommand,
+  UpdateCommand,
+  QueryCommand,
+  DeleteCommand
+} = require("@aws-sdk/lib-dynamodb");
 
 //Declare table and DynamoDb Client
-const REPORT_TABLE = process.env.REPORT_TABLE;
+const PROJECT_TABLE = process.env.PROJECT_TABLE;
 const client = new DynamoDBClient();
 const dynamoDb = DynamoDBDocumentClient.from(client);
 
-
-//Create function
-module.exports.listAllReportsAdmin = async (event, context, callback) => {
-    console.log("EVENT::: Starting scan of all items in " + REPORT_TABLE);
-
-
+module.exports.getProjects = async (event, context, callback) => {
     try {
-        //Declare parameters of table to be scanned
         const params = {
-            TableName: REPORT_TABLE
+            TableName: PROJECT_TABLE
         }
-        console.log("EVENT::: Table parameters grabbed", REPORT_TABLE);
-
 
         //Scan entire table
         const data = await dynamoDb.send(new ScanCommand(params));
@@ -34,10 +30,8 @@ module.exports.listAllReportsAdmin = async (event, context, callback) => {
             callback(new Error(error));
             return;
         }
-        console.log("EVENT::: Table scanned", REPORT_TABLE);
         
-        
-        //Response sent to API Gateway
+        //Response with fields
         const response = {
             isBase64Encoded: false,
             statusCode: 200,
@@ -48,11 +42,8 @@ module.exports.listAllReportsAdmin = async (event, context, callback) => {
             body: JSON.stringify(data)
         }
 
-
-        console.log("SUCCESS::: All reports read in " + REPORT_TABLE);
         callback(null, response);
     } catch(err) {
-        console.log(event.error);
         callback(null, err);
     }  
 };

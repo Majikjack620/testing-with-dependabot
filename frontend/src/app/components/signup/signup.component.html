@@ -13,10 +13,8 @@
         </mat-form-field>
         <mat-label><i class="fa fa-key"></i> Password</mat-label>
         <mat-form-field>
-          <input [type]="hide ? 'password' : 'text'" id="pswd" name="pswd" (keyup)="pswdCred()" matInput formControlName="pswd" />
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
+          <i class="far fa-eye-slash" id="togglePassword" (click)="showPassword()" style="float: right; cursor: pointer"></i>
+          <input type="password" id="pswd" name="pswd" (keyup)="pswdCred()" matInput formControlName="pswd" />
         </mat-form-field>
 
         <h3>Password must:</h3>
@@ -30,18 +28,16 @@
 
         <mat-label><i class="fa fa-key"></i>  Confirm Password</mat-label>
         <mat-form-field>
-          <input [type]="hideCon ? 'password' : 'text'" id="confirmPswd" name="confirmPswd" matInput formControlName="confirmPswd" />
-          <button mat-icon-button matSuffix (click)="hideCon = !hideCon" [attr.aria-pressed]="hideCon">
-            <mat-icon>{{hideCon ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
+          <i class="far fa-eye-slash" id="toggleConfirmPassword" (click)="showConfirmedPassword()" style="float: right; cursor: pointer"></i>
+          <input type="password" id="confirmPswd" name="confirmPswd" matInput formControlName="confirmPswd" />
         </mat-form-field>
 
-        <div *ngIf="signupForm.value.pswd != signupForm.value.confirmPswd" style="color: red"><b>Passwords do not match!</b></div>
+        <div *ngIf="signupForm.value.pswd != signupForm.value.confirmPswd" style="color: red">Passwords do not match!</div>
         <button mat-raised-button class="filled" [disabled]="(signupForm.value.pswd !== signupForm.value.confirmPswd) || signupForm.invalid" (click)="signUp()" style="align-self: center; width: 350px;">Create Account!</button>
         <a class="subtext" routerLink="/signin">Already have an account? Sign in here!</a>
       </form>
 
-      <div class="fa fa-spinner fa-pulse fa-fw" *ngIf="loading" style="align-self: center; padding-top: 10px;"></div>
+    <div class="fa fa-spinner fa-pulse fa-fw" *ngIf="loading" style="align-self: center; padding-top: 10px;"></div>
     </mat-card>
 
     <mat-card *ngIf="confirmed" class="card" style="width: 500px;">

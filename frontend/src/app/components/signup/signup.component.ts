@@ -13,8 +13,6 @@ export class SignupComponent {
   signupForm: any;
   codeForm: any;
   loading: boolean;
-  hide: boolean;
-  hideCon: boolean;
   confirmed: boolean;
   user: IUser;
 
@@ -24,8 +22,6 @@ export class SignupComponent {
     private authService: AuthService,
     private titleService: Title) {
       this.loading = false;
-      this.hide = true;
-      this.hideCon = true;
       this.confirmed = false;
       this.user = {} as IUser;
       this.titleService.setTitle("Sign Up | ROC Swaous");
@@ -47,8 +43,32 @@ export class SignupComponent {
       code: ['', [Validators.required]]
     })
 
-    console.log(this.signupForm, this.codeForm);
+    console.log(this.signupForm);
     this.loading = false;
+  }
+
+  showPassword() {
+    const toggle = document.getElementById('togglePassword');
+    var pswd = document.getElementById("pswd");
+    var type = pswd.getAttribute('type') === 'password' ? 'text' : 'password';
+    
+    pswd.setAttribute('type', type);
+
+    var eye = toggle.getAttribute('class') === 'far fa-eye' ? 'far fa-eye-slash' : 'far fa-eye';
+
+    toggle.setAttribute('class', eye);
+  }
+
+  showConfirmedPassword() {
+    const toggleConfirm = document.getElementById('toggleConfirmPassword');
+    var confirmPswd = document.getElementById("confirmPswd");
+    var type = confirmPswd.getAttribute('type') === 'password' ? 'text' : 'password';
+
+    confirmPswd.setAttribute('type', type);
+
+    var eye = toggleConfirm.getAttribute('class') === 'far fa-eye' ? 'far fa-eye-slash' : 'far fa-eye';
+
+    toggleConfirm.setAttribute('class', eye);
   }
 
   pswdCred() {
