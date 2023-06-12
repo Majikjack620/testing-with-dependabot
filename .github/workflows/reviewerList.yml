@@ -1,0 +1,7 @@
+addReviewers: true
+addAssignees: false
+
+reviewers:
+  - Majikjack620
+  
+numberOfReviewers: 1

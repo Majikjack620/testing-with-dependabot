@@ -1,11 +1,9 @@
-name: Dependabot Dependency Reviewer
+name: Dependabot Dependency Alerter
 
 on:
-  pull_request:
-    branches:
-      - main
-      - master
-      
+  pull_request_target:
+    types: [opened, labeled]
+    
 permissions:
   pull-requests: write
   contents: write
@@ -21,15 +19,16 @@ jobs:
         with:
           GITHUB-TOKEN: ${{secrets.TOKENIZED}}
           
-      - name: Approve Patches and Minor PRs
-        if: ${{steps.metadata.outputs.update-type == 'version-update:semver-patch' || 'version-update:semver-minor'}}
-        run: gh pr review --approve "$PR_URL" --body "**APPROVED:** Patch or minor update to dependencies"
+      - name: Assign PR to Reviewer
+        uses: kentaro-m/auto-assign-action@v1.2.5
+        with:
+          configuration-path: '.github/reviewerList.yml'
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.TOKENIZED}}
       
-      - name: Enabling Auto-merge for Dependabot PRs
-        run: gh pr merge --auto --merge "$PR_URL" --delete-branch
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.TOKENIZED}}
+#       - name: Enabling Auto-merge for Dependabot PRs
+#         run: gh pr merge --auto --merge "$PR_URL" --delete-branch
+#         env:
+#           PR_URL: ${{github.event.pull_request.html_url}}
+#           GITHUB_TOKEN: ${{secrets.TOKENIZED}}
