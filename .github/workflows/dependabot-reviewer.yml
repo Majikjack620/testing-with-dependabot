@@ -7,6 +7,7 @@ on:
 permissions:
   pull-requests: write
   contents: write
+  issues: write
   
 jobs:
   Dependabot-PR-Reviewer:
@@ -20,10 +21,11 @@ jobs:
           GITHUB-TOKEN: ${{secrets.TOKENIZED}}
           
       - name: Assign PR to Reviewer
-        uses: delivery-much/actions-assigner@v1
+        uses: pozil/auto-assign-issue@v1
         with:
-          token: ${{secrets.TOKENIZED}}
-          reviewers: Majikjack620
+          assignees: Majikjack620
+          numOfAssignee: 1
+          allowSelfAssign: true
           
 #       - name: Enabling Auto-merge for Dependabot PRs
 #         run: gh pr merge --auto --merge "$PR_URL" --delete-branch
