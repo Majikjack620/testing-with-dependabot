@@ -5,8 +5,8 @@ updates:
     directory: "/frontend"
     schedule:
       interval: "weekly"
-      day: "thursday"
-      time: "09:45"
+      day: "monday"
+      time: "10:00"
       timezone: "America/Chicago"
     labels:
       - "dependencies"
@@ -23,9 +23,9 @@ updates:
     directory: "/backend"
     schedule:
       interval: "weekly"
-      day: "thursday"
+      day: "monday"
       timezone: "America/Chicago"
-      time: "09:45"
+      time: "10:00"
     labels:
       - "dependencies"
       - "frontend"
