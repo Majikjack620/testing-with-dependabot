@@ -22,7 +22,7 @@ jobs:
       - name: Assign PR to Reviewer
         uses: delivery-much/actions-assigner@v1
         with:
-          GITHUB-TOKEN: ${{secrets.TOKENIZED}}
+          token: ${{secrets.TOKENIZED}}
           reviewers: Majikjack620
           
 #       - name: Enabling Auto-merge for Dependabot PRs
