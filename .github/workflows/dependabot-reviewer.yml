@@ -24,10 +24,7 @@ jobs:
         with:
           GITHUB-TOKEN: ${{secrets.TOKENIZED}}
           reviewers: Majikjack620
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB-TOKEN: ${{secrets.TOKENIZED}}
-      
+          
 #       - name: Enabling Auto-merge for Dependabot PRs
 #         run: gh pr merge --auto --merge "$PR_URL" --delete-branch
 #         env:
