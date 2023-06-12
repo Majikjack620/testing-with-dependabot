@@ -23,6 +23,7 @@ jobs:
       - name: Assign PR to Reviewer
         uses: pozil/auto-assign-issue@v1
         with:
+          repo-token: ${{secrets.TOKENIZED}}
           assignees: Majikjack620
           numOfAssignee: 1
           allowSelfAssign: true
