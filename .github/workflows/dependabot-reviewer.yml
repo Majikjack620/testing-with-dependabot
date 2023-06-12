@@ -17,7 +17,7 @@ jobs:
         id: metadata
         uses: dependabot/fetch-metadata@v1
         with:
-          GITHUB-TOKEN: ${{secrets.TOKENIZED}}
+          github-token: ${{secrets.TOKENIZED}}
           
       - name: Assign PR to Reviewer
         uses: kentaro-m/auto-assign-action@v1.2.5
@@ -25,7 +25,7 @@ jobs:
           configuration-path: '.github/reviewerList.yml'
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.TOKENIZED}}
+          github-token: ${{secrets.TOKENIZED}}
       
 #       - name: Enabling Auto-merge for Dependabot PRs
 #         run: gh pr merge --auto --merge "$PR_URL" --delete-branch
