@@ -12,13 +12,15 @@ permissions:
 jobs:
   Dependabot-PR-Reviewer:
     runs-on: ubuntu-latest
-    if: ${{github.actor == 'dependabot[bot]'}}
     steps:
       - name: Fetching Dependabot Metadata
         id: metadata
         uses: dependabot/fetch-metadata@v1
         with:
           GITHUB-TOKEN: ${{secrets.TOKENIZED}}
+          
+      - name: Dependency Checker
+        uses: actions/dependency-review-action@v3
           
       - name: Assign PR to Reviewer
         uses: pozil/auto-assign-issue@v1
