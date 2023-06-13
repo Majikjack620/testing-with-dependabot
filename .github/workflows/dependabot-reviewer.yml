@@ -12,7 +12,6 @@ permissions:
 jobs:
   Dependabot-PR-Reviewer:
     runs-on: ubuntu-latest
-    if: ${{github.actor == 'dependabot[bot]'}}
     steps:
       - name: Fetching Dependabot Metadata
         id: metadata
