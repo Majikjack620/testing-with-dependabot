@@ -20,6 +20,9 @@ jobs:
         with:
           GITHUB-TOKEN: ${{secrets.TOKENIZED}}
           
+      - name: Dependency Checker
+        uses: actions/dependency-review-action@v3
+          
       - name: Assign PR to Reviewer
         uses: pozil/auto-assign-issue@v1
         with:
