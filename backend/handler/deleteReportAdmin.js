@@ -35,7 +35,7 @@ module.exports.deleteReportAdmin = async (event, context, callback) => {
                 'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
-                message: "AKIAURNRNURORXQ74FI3"
+                message: "Report Deletion Complete"
             })
         }
 
